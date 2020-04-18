@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mobile.appuebliar.dao.SesionDAO;
 import com.mobile.appuebliar.domain.Sesion;
+import com.mobile.appuebliar.domain.Status;
 import com.mobile.appuebliar.util.exception.AppuebliarNotFoundException;
 import com.mobile.appuebliar.util.exception.NullAppuebliarException;
 
@@ -24,9 +25,13 @@ public class SesionService {
 		return response;
 	}
 
-	public String borrarSesion(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+	public Status borrarSesion(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
 		SesionDAO.deleteById(id);
-		return "{'status': 'SUCCES'}";
+		Status response = new Status();
+		response.setMessage("Operacion ejecutada exitosamente.");
+		response.setResponse("SUCCES");
+
+		return response;
 	}
 
 	public List<Sesion> obtenerSesions() throws NullAppuebliarException, AppuebliarNotFoundException {
@@ -36,7 +41,7 @@ public class SesionService {
 	public Sesion obtenerSesion(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
 		return SesionDAO.findById(id).orElse(null);
 	}
-	
+
 	public List<Sesion> obtenerSesionPorUsuario(String id) throws NullAppuebliarException, AppuebliarNotFoundException {
 		return SesionDAO.findByUsuarioId(id);
 	}

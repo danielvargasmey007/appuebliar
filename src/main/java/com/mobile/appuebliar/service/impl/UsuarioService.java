@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mobile.appuebliar.dao.UsuarioDAO;
+import com.mobile.appuebliar.domain.Status;
 import com.mobile.appuebliar.domain.Usuario;
 import com.mobile.appuebliar.util.exception.AppuebliarNotFoundException;
 import com.mobile.appuebliar.util.exception.NullAppuebliarException;
@@ -24,9 +25,13 @@ public class UsuarioService {
 		return response;
 	}
 
-	public String borrarUsuario(String cedula) throws NullAppuebliarException, AppuebliarNotFoundException {
+	public Status borrarUsuario(String cedula) throws NullAppuebliarException, AppuebliarNotFoundException {
 		usuarioDAO.deleteById(cedula);
-		return "SUCCES";
+		Status response = new Status();
+		response.setMessage("Operacion ejecutada exitosamente.");
+		response.setResponse("SUCCES");
+
+		return response;
 	}
 
 	public List<Usuario> obtenerUsuarios() throws NullAppuebliarException, AppuebliarNotFoundException {

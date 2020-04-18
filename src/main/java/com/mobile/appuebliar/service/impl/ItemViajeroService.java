@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mobile.appuebliar.dao.ItemViajeroDAO;
 import com.mobile.appuebliar.domain.ItemViajero;
+import com.mobile.appuebliar.domain.Status;
 import com.mobile.appuebliar.util.exception.AppuebliarNotFoundException;
 import com.mobile.appuebliar.util.exception.NullAppuebliarException;
 
@@ -19,14 +20,19 @@ public class ItemViajeroService {
 	@Autowired
 	private ItemViajeroDAO ItemViajeroDAO;
 
-	public ItemViajero guardarItemViajero(ItemViajero ItemViajero) throws NullAppuebliarException, AppuebliarNotFoundException {
+	public ItemViajero guardarItemViajero(ItemViajero ItemViajero)
+			throws NullAppuebliarException, AppuebliarNotFoundException {
 		ItemViajero response = ItemViajeroDAO.save(ItemViajero);
 		return response;
 	}
 
-	public String borrarItemViajero(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+	public Status borrarItemViajero(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
 		ItemViajeroDAO.deleteById(id);
-		return "{'status': 'SUCCES'}";
+		Status response = new Status();
+		response.setMessage("Operacion ejecutada exitosamente.");
+		response.setResponse("SUCCES");
+
+		return response;
 	}
 
 	public List<ItemViajero> obtenerItemViajeros() throws NullAppuebliarException, AppuebliarNotFoundException {

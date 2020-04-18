@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mobile.appuebliar.dao.AdminDAO;
 import com.mobile.appuebliar.domain.Admin;
+import com.mobile.appuebliar.domain.Status;
 import com.mobile.appuebliar.util.exception.AppuebliarNotFoundException;
 import com.mobile.appuebliar.util.exception.NullAppuebliarException;
 
@@ -24,9 +25,12 @@ public class AdminService {
 		return response;
 	}
 
-	public String borrarAdmin(String nickname) throws NullAppuebliarException, AppuebliarNotFoundException {
+	public Status borrarAdmin(String nickname) throws NullAppuebliarException, AppuebliarNotFoundException {
 		AdminDAO.deleteById(nickname);
-		return "{'status': 'SUCCES'}";
+		Status response = new Status();
+		response.setMessage("Operacion ejecutada exitosamente.");
+		response.setResponse("SUCCES");
+		return response;
 	}
 
 	public List<Admin> obtenerAdmines() throws NullAppuebliarException, AppuebliarNotFoundException {

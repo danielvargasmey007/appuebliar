@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mobile.appuebliar.dao.ProvedorDAO;
 import com.mobile.appuebliar.domain.Proveedor;
+import com.mobile.appuebliar.domain.Status;
 import com.mobile.appuebliar.util.exception.AppuebliarNotFoundException;
 import com.mobile.appuebliar.util.exception.NullAppuebliarException;
 
@@ -24,9 +25,13 @@ public class ProvedorService {
 		return response;
 	}
 
-	public String borrarProvedor(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+	public Status borrarProvedor(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
 		provedorDAO.deleteById(id);
-		return "{'status': 'SUCCES'}";
+		Status response = new Status();
+		response.setMessage("Operacion ejecutada exitosamente.");
+		response.setResponse("SUCCES");
+
+		return response;
 	}
 
 	public List<Proveedor> obtenerProvedores() throws NullAppuebliarException, AppuebliarNotFoundException {

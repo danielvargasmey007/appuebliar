@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mobile.appuebliar.dao.SalidaDAO;
 import com.mobile.appuebliar.domain.Salida;
+import com.mobile.appuebliar.domain.Status;
 import com.mobile.appuebliar.util.exception.AppuebliarNotFoundException;
 import com.mobile.appuebliar.util.exception.NullAppuebliarException;
 
@@ -24,9 +25,13 @@ public class SalidaService {
 		return response;
 	}
 
-	public String borrarSalida(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+	public Status borrarSalida(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
 		SalidaDAO.deleteById(id);
-		return "{'status': 'SUCCES'}";
+		Status response = new Status();
+		response.setMessage("Operacion ejecutada exitosamente.");
+		response.setResponse("SUCCES");
+
+		return response;
 	}
 
 	public List<Salida> obtenerSalidas() throws NullAppuebliarException, AppuebliarNotFoundException {

@@ -12,6 +12,7 @@ import com.mobile.appuebliar.dao.PlanDAO;
 import com.mobile.appuebliar.dao.ProvedorDAO;
 import com.mobile.appuebliar.domain.Plan;
 import com.mobile.appuebliar.domain.Proveedor;
+import com.mobile.appuebliar.domain.Status;
 import com.mobile.appuebliar.util.exception.AppuebliarNotFoundException;
 import com.mobile.appuebliar.util.exception.NullAppuebliarException;
 
@@ -36,9 +37,13 @@ public class PlanService {
 		return PlanDAO.save(Plan);
 	}
 
-	public String borrarPlan(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+	public Status borrarPlan(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
 		PlanDAO.deleteById(id);
-		return "{'status': 'SUCCES'}";
+		Status response = new Status();
+		response.setMessage("Operacion ejecutada exitosamente.");
+		response.setResponse("SUCCES");
+
+		return response;
 	}
 
 	public List<Plan> obtenerPlans() throws NullAppuebliarException, AppuebliarNotFoundException {
