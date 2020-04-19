@@ -96,7 +96,6 @@ public class Plan implements Serializable {
 		this.detalle = detalle;
 	}
 
-	@JsonIgnore
 	public List<Proveedor> getProveedores() {
 		return proveedores;
 	}

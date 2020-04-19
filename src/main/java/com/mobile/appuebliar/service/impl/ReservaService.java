@@ -34,16 +34,29 @@ public class ReservaService {
 		return response;
 	}
 
-	public List<Reserva> obtenerReservas() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Reserva>) ReservaDAO.findAll();
+	public Object obtenerReservas() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Reserva> response = (List<Reserva>) ReservaDAO.findAll();
+
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
-	public Reserva obtenerReserva(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return ReservaDAO.findById(id).orElse(null);
+	public Object obtenerReserva(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Reserva response = ReservaDAO.findById(id).orElse(null);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
-	public List<Reserva> obtenerReservas(String id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return ReservaDAO.findByUsuarioId(id);
+	public Object obtenerReservas(String id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Reserva> response = ReservaDAO.findByUsuarioId(id);
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
 }

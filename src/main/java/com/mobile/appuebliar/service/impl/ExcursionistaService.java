@@ -35,12 +35,22 @@ public class ExcursionistaService {
 		return response;
 	}
 
-	public List<Excursionista> obtenerExcursionistas() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Excursionista>) ExcursionistaDAO.findAll();
+	public Object obtenerExcursionistas() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Excursionista> response = (List<Excursionista>) ExcursionistaDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
 	}
 
-	public Excursionista obtenerExcursionista(String id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return ExcursionistaDAO.findById(id).orElse(null);
+	public Object obtenerExcursionista(String id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Excursionista response = ExcursionistaDAO.findById(id).orElse(null);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
 	}
 
 }

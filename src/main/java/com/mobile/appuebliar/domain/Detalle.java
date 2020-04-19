@@ -112,6 +112,14 @@ public class Detalle implements Serializable {
 		this.salidas = salidas;
 	}
 
+	public List<ItemViajero> getItemViajeros() {
+		return itemViajeros;
+	}
+
+	public List<Salida> getSalidas() {
+		return salidas;
+	}
+
 	public void setItemViajeros(List<ItemViajero> itemViajeros) {
 		this.itemViajeros = itemViajeros;
 	}

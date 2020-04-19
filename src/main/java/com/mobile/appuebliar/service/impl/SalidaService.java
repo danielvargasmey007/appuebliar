@@ -34,12 +34,20 @@ public class SalidaService {
 		return response;
 	}
 
-	public List<Salida> obtenerSalidas() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Salida>) SalidaDAO.findAll();
+	public Object obtenerSalidas() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Salida> response = (List<Salida>) SalidaDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
-	public Salida obtenerSalida(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return SalidaDAO.findById(id).orElse(null);
+	public Object obtenerSalida(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Salida response = SalidaDAO.findById(id).orElse(null);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
 }

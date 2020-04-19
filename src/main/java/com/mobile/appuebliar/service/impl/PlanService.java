@@ -28,11 +28,13 @@ public class PlanService {
 
 	public Plan guardarPlan(Plan Plan) throws NullAppuebliarException, AppuebliarNotFoundException {
 		List<Proveedor> provedores = Plan.getProveedores();
-		Plan.setProveedores(new ArrayList<Proveedor>());
-		for (Proveedor proveedor : provedores) {
-			proveedor = provedorDAO.findById(proveedor.getId()).orElse(new Proveedor());
-			proveedor.getPlanes().add(Plan);
-			Plan.getProveedores().add(proveedor);
+		if (provedores != null) {
+			Plan.setProveedores(new ArrayList<Proveedor>());
+			for (Proveedor proveedor : provedores) {
+				proveedor = provedorDAO.findById(proveedor.getId()).orElse(new Proveedor());
+				proveedor.getPlanes().add(Plan);
+				Plan.getProveedores().add(proveedor);
+			}
 		}
 		return PlanDAO.save(Plan);
 	}
@@ -46,12 +48,20 @@ public class PlanService {
 		return response;
 	}
 
-	public List<Plan> obtenerPlans() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Plan>) PlanDAO.findAll();
+	public Object obtenerPlans() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Plan> response = (List<Plan>) PlanDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
-	public Plan obtenerPlan(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return PlanDAO.findById(id).orElse(null);
+	public Object obtenerPlan(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Plan response = PlanDAO.findById(id).orElse(null);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
 }

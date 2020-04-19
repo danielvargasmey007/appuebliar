@@ -28,4 +28,10 @@ public class Status implements Serializable {
 	public Status() {
 	}
 
+	public Status(Object response, String message) {
+		super();
+		this.response = response;
+		this.message = message;
+	}
+
 }

@@ -34,12 +34,22 @@ public class DetalleService {
 		return response;
 	}
 
-	public List<Detalle> obtenerDetalles() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Detalle>) DetalleDAO.findAll();
+	public Object obtenerDetalles() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Detalle> response = (List<Detalle>) DetalleDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
 	}
 
-	public Detalle obtenerDetalle(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return DetalleDAO.findById(id).orElse(null);
+	public Object obtenerDetalle(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Detalle response = DetalleDAO.findById(id).orElse(null);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
 	}
 
 }

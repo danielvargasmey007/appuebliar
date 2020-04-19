@@ -35,12 +35,22 @@ public class ItemViajeroService {
 		return response;
 	}
 
-	public List<ItemViajero> obtenerItemViajeros() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<ItemViajero>) ItemViajeroDAO.findAll();
+	public Object obtenerItemViajeros() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<ItemViajero> response = (List<ItemViajero>) ItemViajeroDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
 	}
 
-	public ItemViajero obtenerItemViajero(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return ItemViajeroDAO.findById(id).orElse(null);
+	public Object obtenerItemViajero(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		ItemViajero response = ItemViajeroDAO.findById(id).orElse(null);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
 	}
 
 }

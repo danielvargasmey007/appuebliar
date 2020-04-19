@@ -33,12 +33,22 @@ public class AdminService {
 		return response;
 	}
 
-	public List<Admin> obtenerAdmines() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Admin>) AdminDAO.findAll();
+	public Object obtenerAdmines() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Admin> response = (List<Admin>) AdminDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
 	}
 
-	public Admin obtenerAdmin(String nickname) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return AdminDAO.findByNickName(nickname);
+	public Object obtenerAdmin(String nickname) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Admin response = AdminDAO.findByNickName(nickname);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
 	}
 
 }

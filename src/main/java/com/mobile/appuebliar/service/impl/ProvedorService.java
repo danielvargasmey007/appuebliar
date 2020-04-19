@@ -34,12 +34,21 @@ public class ProvedorService {
 		return response;
 	}
 
-	public List<Proveedor> obtenerProvedores() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Proveedor>) provedorDAO.findAll();
+	public Object obtenerProvedores() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Proveedor> response = (List<Proveedor>) provedorDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
-	public Proveedor obtenerProvedor(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return provedorDAO.findById(id).orElse(null);
+	public Object obtenerProvedor(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Proveedor response = provedorDAO.findById(id).orElse(null);
+
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
 }

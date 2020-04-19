@@ -34,16 +34,28 @@ public class SesionService {
 		return response;
 	}
 
-	public List<Sesion> obtenerSesions() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Sesion>) SesionDAO.findAll();
+	public Object obtenerSesions() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Sesion> response = (List<Sesion>) SesionDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
-	public Sesion obtenerSesion(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return SesionDAO.findById(id).orElse(null);
+	public Object obtenerSesion(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Sesion response = SesionDAO.findById(id).orElse(null);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
-	public List<Sesion> obtenerSesionPorUsuario(String id) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return SesionDAO.findByUsuarioId(id);
+	public Object obtenerSesionPorUsuario(String id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Sesion> response = SesionDAO.findByUsuarioId(id);
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
 }

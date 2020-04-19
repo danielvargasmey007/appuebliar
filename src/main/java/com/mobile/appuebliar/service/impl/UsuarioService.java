@@ -34,12 +34,20 @@ public class UsuarioService {
 		return response;
 	}
 
-	public List<Usuario> obtenerUsuarios() throws NullAppuebliarException, AppuebliarNotFoundException {
-		return (List<Usuario>) usuarioDAO.findAll();
+	public Object obtenerUsuarios() throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Usuario> response = (List<Usuario>) usuarioDAO.findAll();
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
-	public Usuario obtenerUsuario(String cedula) throws NullAppuebliarException, AppuebliarNotFoundException {
-		return usuarioDAO.findById(cedula).orElse(null);
+	public Object obtenerUsuario(String cedula) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Usuario response = usuarioDAO.findById(cedula).orElse(null);
+		if (response == null) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+		return response;
 	}
 
 }
