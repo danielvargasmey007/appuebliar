@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "ADMIN")
 public class Admin implements Serializable {
@@ -48,6 +50,9 @@ public class Admin implements Serializable {
 
 	@Column(name = "sexo")
 	private Integer sexo;
+
+	@Column(name = "pass")
+	private String pass;
 
 	@OneToMany(mappedBy = "admin")
 	private List<Proveedor> provedoresCreados;
@@ -190,6 +195,15 @@ public class Admin implements Serializable {
 
 	public void setSexo(Integer sexo) {
 		this.sexo = sexo;
+	}
+
+	@JsonIgnore
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	public Admin() {

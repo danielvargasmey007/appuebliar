@@ -41,9 +41,9 @@ public class Usuario implements Serializable {
 
 	@Column(name = "tc")
 	private String tc;
-
-	@Column(name = "correo")
-	private String correo;
+	
+	@Column(name = "pass")
+	private String pass;
 
 	@Column(name = "sexo")
 	private Integer sexo;
@@ -53,6 +53,9 @@ public class Usuario implements Serializable {
 
 	@OneToMany(mappedBy = "usuario")
 	private List<Sesion> misSesiones;
+
+	@Column(name = "correo")
+	private String correo;
 
 	public String getId() {
 		return id;
@@ -150,6 +153,15 @@ public class Usuario implements Serializable {
 
 	public void setMisSesiones(List<Sesion> misSesiones) {
 		this.misSesiones = misSesiones;
+	}
+	
+	@JsonIgnore
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	public Usuario() {
