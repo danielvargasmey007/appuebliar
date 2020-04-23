@@ -155,7 +155,6 @@ public class Usuario implements Serializable {
 		this.misSesiones = misSesiones;
 	}
 	
-	@JsonIgnore
 	public String getPass() {
 		return pass;
 	}
