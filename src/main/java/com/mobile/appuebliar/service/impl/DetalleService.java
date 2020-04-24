@@ -51,5 +51,14 @@ public class DetalleService {
 
 		return response;
 	}
+	
+	public Object obtenerDetallesPorOrigen(String destino) throws NullAppuebliarException, AppuebliarNotFoundException {
+		List<Detalle> response = (List<Detalle>) DetalleDAO.findByDestinoContaining(destino);
+		if (response == null || response.isEmpty()) {
+			return new Status("BLANK", "Operacion No se encontraron datos");
+		}
+
+		return response;
+	}
 
 }

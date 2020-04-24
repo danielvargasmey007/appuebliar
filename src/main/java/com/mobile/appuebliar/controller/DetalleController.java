@@ -63,4 +63,15 @@ public class DetalleController {
 		}
 	}
 
+	@GetMapping("/destino/{destino}")
+	public ResponseEntity<Object> obtenerDetallesPorOrigen(@PathVariable String destino) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(DetalleService.obtenerDetallesPorOrigen(destino));
+		} catch (NullAppuebliarException exception) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+		} catch (AppuebliarNotFoundException exception) {
+			return ResponseEntity.status(HttpStatus.OK).body(exception.getMessage());
+		}
+	}
+
 }
