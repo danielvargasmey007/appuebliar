@@ -12,8 +12,6 @@ import com.mobile.appuebliar.util.exception.NullAppuebliarException;
 
 @RestController
 @RequestMapping("/sesion")
-@CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE,
-		RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PATCH, RequestMethod.TRACE }, allowedHeaders = "*")
 public class SesionController {
 
 	@Autowired
