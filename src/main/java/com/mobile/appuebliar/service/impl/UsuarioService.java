@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,11 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private AdminDAO adminDAO;
-
+	
 	public Usuario guardarUsuario(Usuario usuario) throws NullAppuebliarException, AppuebliarNotFoundException {
+		if(usuario != null) {
+			usuario.setPass(new BCryptPasswordEncoder().encode(usuario.getPass()));
+		}
 		Usuario response = usuarioDAO.save(usuario);
 		return response;
 	}
