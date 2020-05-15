@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.mobile.appuebliar.domain.Plan;
 
-
 @Repository
 public interface PlanDAO extends CrudRepository<Plan, Long> {
 
+	Plan findByDetalle_Id(Long detalleId);
 }

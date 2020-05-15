@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mobile.appuebliar.dao.DetalleDAO;
 import com.mobile.appuebliar.dao.PlanDAO;
 import com.mobile.appuebliar.dao.ProvedorDAO;
+import com.mobile.appuebliar.domain.Detalle;
 import com.mobile.appuebliar.domain.Plan;
 import com.mobile.appuebliar.domain.Proveedor;
 import com.mobile.appuebliar.domain.Status;
@@ -25,6 +27,9 @@ public class PlanService {
 
 	@Autowired
 	private ProvedorDAO provedorDAO;
+
+	@Autowired
+	private DetalleDAO detalleDAO;
 
 	public Plan guardarPlan(Plan Plan) throws NullAppuebliarException, AppuebliarNotFoundException {
 		List<Proveedor> provedores = Plan.getProveedores();
@@ -62,6 +67,17 @@ public class PlanService {
 			return new Status("BLANK", "Operacion No se encontraron datos");
 		}
 		return response;
+	}
+
+	public Object obtenerPlanPorDetalle(Long id) throws NullAppuebliarException, AppuebliarNotFoundException {
+		Detalle detalle = detalleDAO.findById(id).orElse(null);
+		if (detalle != null) {
+			Plan response =  (Plan) PlanDAO.findByDetalle_Id(id);
+			if (response != null) {
+				return response;
+			}
+		}
+		return new Status("BLANK", "Operacion No se encontraron datos");
 	}
 
 }
