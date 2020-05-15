@@ -60,5 +60,16 @@ public class PlanController {
 			return ResponseEntity.status(HttpStatus.OK).body(exception.getMessage());
 		}
 	}
+	
+	@GetMapping("/detalle/{id}")
+	public ResponseEntity<Object> obtenerPlanPorDetalle(@PathVariable Long id) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(PlanService.obtenerPlanPorDetalle(id));
+		} catch (NullAppuebliarException exception) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+		} catch (AppuebliarNotFoundException exception) {
+			return ResponseEntity.status(HttpStatus.OK).body(exception.getMessage());
+		}
+	}
 
 }
